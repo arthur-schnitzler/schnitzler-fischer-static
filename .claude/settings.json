@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/oldfiche/git/schnitzler-briefe-static/html/js/**)",
+      "Read(//Users/oldfiche/git/schnitzler-briefe-static/html/js-data/**)",
+      "Bash(mkdir -p /Users/oldfiche/git/schnitzler-fischer-static/html/js-data)",
+      "Bash(cp /Users/oldfiche/git/schnitzler-briefe-static/html/js/simple-calendar.js /Users/oldfiche/git/schnitzler-fischer-static/html/js/)",
+      "Bash(cp /Users/oldfiche/git/schnitzler-briefe-static/html/js/calendar.js /Users/oldfiche/git/schnitzler-fischer-static/html/js/)",
+      "Bash(cp /Users/oldfiche/git/schnitzler-briefe-static/html/js-data/calendarData.js /Users/oldfiche/git/schnitzler-fischer-static/html/js-data/)",
+      "Bash(head -5 grep \"import\\\\|include\" /Users/oldfiche/git/schnitzler-fischer-static/xslt/partials/html_head.xsl)",
+      "Bash(grep -l \"html_head\" /Users/oldfiche/git/schnitzler-fischer-static/xslt/*.xsl)",
+      "Bash(head -5 grep -n \"xsl:import\\\\|xsl:include\\\\|xsl:output\" /Users/oldfiche/git/schnitzler-fischer-static/xslt/index.xsl)",
+      "Bash(head -5 grep -n \"xsl:import\\\\|xsl:include\\\\|xsl:output\" /Users/oldfiche/git/schnitzler-fischer-static/xslt/meta.xsl)",
+      "Bash(head -5 grep -n \"xsl:import\\\\|xsl:include\\\\|xsl:output\" /Users/oldfiche/git/schnitzler-fischer-static/xslt/noske-search.xsl)",
+      "Bash(head -5 grep -n \"xsl:import\\\\|xsl:include\\\\|xsl:output\" /Users/oldfiche/git/schnitzler-fischer-static/xslt/search.xsl)",
+      "Bash(head -5 grep -n \"xsl:import\\\\|xsl:include\\\\|xsl:output\" /Users/oldfiche/git/schnitzler-fischer-static/xslt/toc.xsl)",
+      "Bash(head -5 grep -n \"xsl:import\\\\|xsl:include\\\\|xsl:output\" /Users/oldfiche/git/schnitzler-fischer-static/xslt/imprint.xsl)",
+      "Bash(for f:*)",
+      "Bash(do echo:*)",
+      "Bash(find /Users/oldfiche/git/schnitzler-fischer-static -type f \\\\\\(-name *nav* -o -name *header* \\\\\\))"
+    ]
+  }
+}
