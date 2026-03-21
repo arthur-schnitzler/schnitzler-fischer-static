@@ -36,8 +36,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
-      - name: install python things
-        run: pip install -r requirements.txt 
+      - name: install uv
+        uses: astral-sh/setup-uv@v5
       - name: Fetch the data
         run: ./fetch_data.sh
       - name: Build the app
