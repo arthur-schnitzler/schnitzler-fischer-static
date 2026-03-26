@@ -13,5 +13,17 @@ rm -rf ./schnitzler-fischer-data-main
 echo "fetch imprint"
 ./shellscripts/dl_imprint.sh
 
+# get schnitzler-chronik-data
+
+# Download XML files from GitHub repository
+rm -rf chronik-data
+mkdir -p chronik-data
+git clone --depth 1 --filter=blob:none --sparse https://github.com/arthur-schnitzler/schnitzler-chronik-data.git temp-chronik
+cd temp-chronik
+git sparse-checkout set editions/data
+cd ..
+find temp-chronik/editions/data -name "*.xml" -exec cp {} chronik-data/ \;
+rm -rf temp-chronik
+
 echo "creating calendar data"
 uv run pyscripts/make_calendar_data.py
