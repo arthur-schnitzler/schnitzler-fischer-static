@@ -5,6 +5,7 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     exclude-result-prefixes="#all"
     version="2.0">
+    <xsl:param name="github_url">https://github.com/arthur-schnitzler/schnitzler-fischer-static</xsl:param>
     <xsl:template name="html_footer">
         <footer class="py-3 bg-body-tertiary">
             <div class="text-center">
