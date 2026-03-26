@@ -32,33 +32,6 @@
                                 </h1>
                             </div>
                             <div class="card-body">
-                                <div id="chart-container" class="border rounded p-3 mb-3"
-                                    style="background-color: white;">
-                                    <div class="d-flex justify-content-end mb-2">
-                                        <button type="button"
-                                            class="btn btn-sm btn-outline-secondary"
-                                            onclick="document.getElementById('chart-container').style.display='none'"
-                                            aria-label="Charts ausblenden">×</button>
-                                    </div>
-                                    <div id="container"
-                                        style="padding-bottom: 20px; width:100%; margin: auto"/>
-                                    <div id="chart-buttons" class="text-center mt-3"
-                                        style="margin: auto; padding-bottom: 20px">
-                                        <button class="btn mx-1 chart-btn"
-                                            style="background-color: #A63437; color: white; border: none; padding: 5px 10px; font-size: 0.875rem;"
-                                            data-csv="https://raw.githubusercontent.com/arthur-schnitzler/schnitzler-briefe-charts/main/netzwerke/person_freq_corp_weights_directed/person_freq_corp_weights_directed_top30.csv"
-                                            >Top 30</button>
-                                        <button class="btn mx-1 chart-btn"
-                                            style="background-color: #A63437; color: white; border: none; padding: 5px 10px; font-size: 0.875rem;"
-                                            data-csv="https://raw.githubusercontent.com/arthur-schnitzler/schnitzler-briefe-charts/main/netzwerke/person_freq_corp_weights_directed/person_freq_corp_weights_directed_top100.csv"
-                                            >Top 100</button>
-                                        <button class="btn mx-1 chart-btn"
-                                            style="background-color: #A63437; color: white; border: none; padding: 5px 10px; font-size: 0.875rem;"
-                                            data-csv="https://raw.githubusercontent.com/arthur-schnitzler/schnitzler-briefe-charts/main/netzwerke/person_freq_corp_weights_directed/person_freq_corp_weights_directed_top500.csv"
-                                            >Top 500</button>
-                                    </div>
-                                    <script src="js/person_freq_corp_weights_directed.js"/>
-                                </div>
                                 <!--<div class="text-center p-1"><span id="counter1"></span> von <span id="counter2"></span> Personen</div>-->
                                 <table class="table table-sm display" id="tabulator-table-person">
                                     <thead>
