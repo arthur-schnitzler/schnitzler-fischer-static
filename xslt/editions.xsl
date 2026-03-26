@@ -309,12 +309,12 @@
 
                                         <!-- Beteiligte an der Korrespondenz -->
                                         <details style="margin-bottom: 1em;">
-                                            <summary>Beteiligte an der Korrespondenz</summary>
+                                            <summary>Korrespondenzpartner_innen</summary>
                                             <div style="padding-left: 20px; margin-top: 0.5em;">
                                                 <xsl:for-each select="//tei:correspDesc//tei:persName">
                                                     <xsl:variable name="person-id" select="substring-after(@ref, '#')"/>
                                                     <div style="margin-bottom: 4px;">
-                                                        <a style="color: #A63437;">
+                                                        <a>
                                                             <xsl:attribute name="href">
                                                                 <xsl:value-of select="concat($person-id, '.html')"/>
                                                             </xsl:attribute>
@@ -350,7 +350,7 @@
                                                         </xsl:choose>
                                                     </xsl:variable>
                                                     <div style="margin-bottom: 4px;">
-                                                        <a style="color: #A63437;">
+                                                        <a>
                                                             <xsl:attribute name="href">
                                                                 <xsl:value-of select="concat(data(@xml:id), '.html')"/>
                                                             </xsl:attribute>
@@ -371,7 +371,7 @@
                                                     <xsl:for-each select="descendant::tei:text/tei:back/tei:listBibl/tei:bibl">
                                                         <xsl:sort select="child::tei:title[1]"/>
                                                         <div style="margin-bottom: 4px;">
-                                                            <a style="color: #A63437;">
+                                                            <a>
                                                                 <xsl:attribute name="href">
                                                                     <xsl:value-of select="concat(data(@xml:id), '.html')"/>
                                                                 </xsl:attribute>
@@ -425,7 +425,7 @@
                                                     <xsl:for-each select="descendant::tei:text/tei:back/tei:listOrg//tei:org">
                                                         <xsl:sort select="child::tei:orgName[1]"/>
                                                         <div style="margin-bottom: 4px;">
-                                                            <a style="color: #A63437;">
+                                                            <a>
                                                                 <xsl:attribute name="href">
                                                                     <xsl:value-of select="concat(data(@xml:id), '.html')"/>
                                                                 </xsl:attribute>
@@ -447,7 +447,7 @@
                                                     <xsl:for-each select="descendant::tei:text/tei:back/tei:listEvent/tei:event">
                                                         <xsl:sort select="child::tei:eventName[1]"/>
                                                         <div style="margin-bottom: 4px;">
-                                                            <a style="color: #A63437;">
+                                                            <a>
                                                                 <xsl:attribute name="href">
                                                                     <xsl:value-of select="concat(data(@xml:id), '.html')"/>
                                                                 </xsl:attribute>
@@ -469,7 +469,7 @@
                                                     <xsl:for-each select="descendant::tei:text/tei:back/tei:listPlace/tei:place">
                                                         <xsl:sort select="child::tei:placeName[1]"/>
                                                         <div style="margin-bottom: 4px;">
-                                                            <a style="color: #A63437;">
+                                                            <a>
                                                                 <xsl:attribute name="href">
                                                                     <xsl:value-of select="concat(data(@xml:id), '.html')"/>
                                                                 </xsl:attribute>

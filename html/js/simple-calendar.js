@@ -18,7 +18,7 @@ class SimpleCalendar {
     
     // Event type categories and colors for letters
     this.eventCategories = {
-      'as-sender': '#fff',       // Letters FROM Schnitzler (white)
+      'as-sender': '#3D4F9F',       // Letters FROM Schnitzler (white)
       'as-empf': '#2A9D8F',      // Letters FROM Fischer (teal)
       'umfeld': '#68825b'        // Third-party letters (green)
     };

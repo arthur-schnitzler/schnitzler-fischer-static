@@ -27,3 +27,6 @@ rm -rf temp-chronik
 
 echo "creating calendar data"
 uv run pyscripts/make_calendar_data.py
+
+echo "adding mentions to indices"
+uv run pyscripts/add_mentions.py
