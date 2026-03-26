@@ -69,13 +69,13 @@ for x in tqdm(files, total=len(files)):
 
         if is_schnitzler_sender:
             item["category"] = "as-sender"
-            item["categoryLabel"] = "Brief von Schnitzler"
+            item["categoryLabel"] = "Von Schnitzler"
         elif is_schnitzler_receiver:
             item["category"] = "as-empf"
-            item["categoryLabel"] = "Brief an Schnitzler"
+            item["categoryLabel"] = "Von Fischer"
         else:
             item["category"] = "umfeld"
-            item["categoryLabel"] = "Umfeldbrief"
+            item["categoryLabel"] = "Von Dritten"
 
         try:
             sender = doc.any_xpath(f'{sent}//tei:persName/text()')

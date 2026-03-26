@@ -18,17 +18,15 @@ class SimpleCalendar {
     
     // Event type categories and colors for letters
     this.eventCategories = {
-      'as-sender': '#A63437',    // Letters FROM Schnitzler (red)
-      'as-empf': '#1C6E8C',      // Letters TO Schnitzler (blue)
-      'umfeld': '#68825b',       // Third-party letters (green)
-      'gedruckt': 'rgb(101, 67, 33)'  // Printed letters (brown)
+      'as-sender': '#fff',       // Letters FROM Schnitzler (white)
+      'as-empf': '#2A9D8F',      // Letters FROM Fischer (teal)
+      'umfeld': '#68825b'        // Third-party letters (green)
     };
-    
+
     this.categoryLabels = {
-      'as-sender': 'Briefe Schnitzlers',
-      'as-empf': 'Briefe an Schnitzler', 
-      'umfeld': 'Umfeldbriefe',
-      'gedruckt': 'Gedruckte Briefe'
+      'as-sender': 'Von Schnitzler',
+      'as-empf': 'Von Fischer',
+      'umfeld': 'Von Dritten'
     };
     
     
@@ -127,17 +125,13 @@ class SimpleCalendar {
                     <span class="filter-dot"></span>
                     Von Schnitzler
                   </button>
-                  <button class="filter-toggle active" data-category="as-empf" title="Briefe an Schnitzler">
+                  <button class="filter-toggle active" data-category="as-empf" title="Briefe von Fischer">
                     <span class="filter-dot"></span>
-                    An Schnitzler
+                    Von Fischer
                   </button>
-                  <button class="filter-toggle active" data-category="umfeld" title="Umfeldbriefe">
+                  <button class="filter-toggle active" data-category="umfeld" title="Briefe von Dritten">
                     <span class="filter-dot"></span>
-                    Umfeldbriefe
-                  </button>
-                  <button class="filter-toggle active" data-category="gedruckt" title="Gedruckte Briefe">
-                    <span class="filter-dot"></span>
-                    Gedruckte Briefe
+                    Von Dritten
                   </button>
                 </div>
               </div>
@@ -306,43 +300,34 @@ class SimpleCalendar {
         }
         
         .filter-toggle[data-category="as-sender"] .filter-dot {
-          border-color: #A63437;
+          border-color: #aaa;
+          background-color: #fff;
         }
-        
+
         .filter-toggle[data-category="as-empf"] .filter-dot {
-          border-color: #1C6E8C;
+          border-color: #2A9D8F;
         }
-        
+
         .filter-toggle[data-category="umfeld"] .filter-dot {
           border-color: #68825b;
         }
-        
-        .filter-toggle[data-category="gedruckt"] .filter-dot {
-          border-color: rgb(101, 67, 33);
-        }
-        
+
         .filter-toggle.active[data-category="as-sender"] {
-          background: #A63437;
-          color: white;
-          border-color: #A63437;
+          background: #fff;
+          color: #333;
+          border-color: #aaa;
         }
-        
+
         .filter-toggle.active[data-category="as-empf"] {
-          background: #1C6E8C;
+          background: #2A9D8F;
           color: white;
-          border-color: #1C6E8C;
+          border-color: #2A9D8F;
         }
-        
+
         .filter-toggle.active[data-category="umfeld"] {
           background: #68825b;
           color: white;
           border-color: #68825b;
-        }
-        
-        .filter-toggle.active[data-category="gedruckt"] {
-          background: rgb(101, 67, 33);
-          color: white;
-          border-color: rgb(101, 67, 33);
         }
         
         .filter-toggle:not(.active) {
@@ -1123,8 +1108,7 @@ class SimpleCalendar {
     const categoryCounts = {
       'as-sender': 0,
       'as-empf': 0,
-      'umfeld': 0,
-      'gedruckt': 0
+      'umfeld': 0
     };
 
     dayEvents.forEach(event => {
@@ -1291,17 +1275,7 @@ class SimpleCalendar {
         eventEl.title = event.name;
         eventEl.addEventListener('click', (e) => {
           e.stopPropagation();
-          if (event.category === 'gedruckt') {
-            // Use global function for printed letters
-            if (typeof window.showPrintedLetterPopup === 'function') {
-              window.showPrintedLetterPopup(event);
-            } else {
-              // Fallback if function not available
-              window.location.href = event.linkId || '#';
-            }
-          } else {
-            window.location.href = event.linkId;
-          }
+          window.location.href = event.linkId;
         });
         eventsContainer.appendChild(eventEl);
       });
@@ -1380,17 +1354,7 @@ class SimpleCalendar {
         eventEl.title = event.name;
         eventEl.addEventListener('click', (e) => {
           e.stopPropagation();
-          if (event.category === 'gedruckt') {
-            // Use global function for printed letters
-            if (typeof window.showPrintedLetterPopup === 'function') {
-              window.showPrintedLetterPopup(event);
-            } else {
-              // Fallback if function not available
-              window.location.href = event.linkId || '#';
-            }
-          } else {
-            window.location.href = event.linkId;
-          }
+          window.location.href = event.linkId;
         });
         dayColumn.appendChild(eventEl);
       });
