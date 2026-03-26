@@ -4,7 +4,7 @@
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0">
     <xsl:param name="directory_name">schnitzler-fischer-static</xsl:param>
     <xsl:param name="project_title">Arthur Schnitzler und der S. Fischer Verlag</xsl:param>
-    <xsl:param name="redmine_id">18716</xsl:param>
+    <xsl:param name="redmine_id"></xsl:param>
     <xsl:param name="project_short_title">Schnitzler – S. Fischer</xsl:param>
     <xsl:param name="default_lang">de</xsl:param>
     <xsl:param name="github_url">https://github.com/arthur-schnitzler/schnitzler-fischer-static</xsl:param>
