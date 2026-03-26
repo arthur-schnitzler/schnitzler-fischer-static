@@ -5,6 +5,10 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     exclude-result-prefixes="#all"
     version="2.0">
+    <xsl:param name="project_short_title">Schnitzler – S. Fischer</xsl:param>
+    <xsl:param name="project_title">Arthur Schnitzler und der S. Fischer Verlag</xsl:param>
+    <xsl:param name="base_url">https://arthur-schnitzler.github.io/schnitzler-fischer-static/</xsl:param>
+    <xsl:param name="project_logo">images/logo.png</xsl:param>
     <xsl:template name="html_head">
         <xsl:param name="html_title" select="$project_short_title"></xsl:param>
         <xsl:param name="html_description" select="''"/>

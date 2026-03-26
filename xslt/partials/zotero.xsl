@@ -4,6 +4,8 @@
     xmlns:math="http://www.w3.org/2005/xpath-functions/math"
     exclude-result-prefixes="xs math"
     version="3.0">
+    <xsl:param name="base_url">https://arthur-schnitzler.github.io/schnitzler-fischer-static/</xsl:param>
+    <xsl:param name="project_title">Arthur Schnitzler und der S. Fischer Verlag</xsl:param>
     <xsl:template name="zoterMetaTags">
         <xsl:param name="zoteroTitle" select="false()"></xsl:param>
         <xsl:param name="pageId" select="''"></xsl:param>

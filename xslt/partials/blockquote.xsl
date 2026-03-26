@@ -3,6 +3,7 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     exclude-result-prefixes="xs"
     version="2.0">
+    <xsl:param name="base_url">https://arthur-schnitzler.github.io/schnitzler-fischer-static/</xsl:param>
     <xsl:template name="blockquote">
         <xsl:param name="pageId" select="''"></xsl:param>
         <xsl:param name="customUrl" select="$base_url"></xsl:param>
