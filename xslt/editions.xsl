@@ -372,6 +372,119 @@
                                 </div>
                             </div>
                             <div class="sf-col-4">
+                                <div class="sf-panel sf-panel--link">
+                                    <div class="sf-panel__title"
+                                        onclick="this.closest('.sf-panel').classList.toggle('sf-panel--collapsed')"
+                                        >Versandweg</div>
+                                    <div class="sf-panel__body">
+                                    <!-- Postwegkarte -->
+                                    <xsl:if test="
+                                        exists(for $r in //tei:correspAction/tei:placeName/@ref
+                                        return
+                                        $back//tei:place[@xml:id = substring-after(string($r), '#')]/tei:location[@type = 'coords']/tei:geo)">
+                                        <div id="corresp-route-map"
+                                            style="height:250px;width:100%;margin-bottom:0.5em;border-radius:4px;border:1px solid #dee2e6;"/>
+                                        <div style="font-size:0.8em;margin-bottom:0.75em;color:#555;">
+                                            <span
+                                                style="display:inline-block;width:12px;height:12px;border-radius:50%;background:#c0392b;margin-right:4px;vertical-align:middle;"/>
+                                            <xsl:text>Versand&#160;&#160;</xsl:text>
+                                            <span
+                                                style="display:inline-block;width:12px;height:12px;border-radius:50%;background:#2980b9;margin-right:4px;vertical-align:middle;"/>
+                                            <xsl:text>Empfang</xsl:text>
+                                        </div>
+                                        <script>(function(){
+                                            var mapPoints=[<xsl:for-each select="//tei:correspAction[tei:placeName/@ref]"><xsl:variable name="action-type" select="@type"/><xsl:for-each select="tei:placeName[@ref]"><xsl:variable name="place-id" select="substring-after(@ref, '#')"/><xsl:variable name="geo" select="$back//tei:place[@xml:id = $place-id]/tei:location[@type = 'coords']/tei:geo[1]"/><xsl:if test="$geo">{lat:<xsl:value-of select="replace(tokenize(string($geo), ' ')[1], ',', '.')"/>,lng:<xsl:value-of select="replace(tokenize(string($geo), ' ')[2], ',', '.')"/>,type:'<xsl:value-of select="$action-type"/>',name:'<xsl:value-of select="normalize-space(.)"/>'},</xsl:if></xsl:for-each></xsl:for-each>];
+                                            document.addEventListener('DOMContentLoaded',function(){
+                                            var el=document.getElementById('corresp-route-map');
+                                            if(!el||el._leaflet_id){return;}
+                                            var map=L.map(el);
+                                            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+                                            attribution:'&#169; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',maxZoom:18
+                                            }).addTo(map);
+                                            mapPoints.forEach(function(p,i){
+                                            for(var j=0;j!==i;j++){if(Math.round((mapPoints[j].lat-p.lat)*10000)===0){if(Math.round((mapPoints[j].lng-p.lng)*10000)===0){mapPoints[j].lat-=0.001;mapPoints[j].lng-=0.001;p.lat+=0.001;p.lng+=0.001;}}}
+                                            });
+                                            var pts=[];
+                                            mapPoints.forEach(function(p){
+                                            var col=p.type==='sent'?'#c0392b':(p.type==='received'?'#2980b9':'#7f8c8d');
+                                            L.circleMarker([p.lat,p.lng],{radius:8,fillColor:col,color:'#fff',weight:2,opacity:1,fillOpacity:0.9}).addTo(map).bindPopup(p.name);
+                                            pts.push([p.lat,p.lng]);
+                                            });
+                                            if(pts[1]){L.polyline(pts,{color:'#888',weight:2,dashArray:'4,4'}).addTo(map);map.fitBounds(L.latLngBounds(pts).pad(0.3),{maxZoom:10});}
+                                            else if(pts[0]){map.setView(pts[0],10);}
+                                            });
+                                            })();</script>
+                                    </xsl:if>
+                                    <table class="table table-striped align-top">
+                                        <tbody>
+                                            <xsl:for-each select="//tei:correspAction">
+                                                <tr>
+                                                    <th>
+                                                        <xsl:choose>
+                                                            <xsl:when test="@type = 'sent'"> Versand: </xsl:when>
+                                                            <xsl:when test="@type = 'received'"> Empfang: </xsl:when>
+                                                            <xsl:when test="@type = 'forwarded'">
+                                                                Weiterleitung: </xsl:when>
+                                                            <xsl:when test="@type = 'redirected'"> Umleitung: </xsl:when>
+                                                            <xsl:when test="@type = 'delivered'"> Zustellung: </xsl:when>
+                                                            <xsl:when test="@type = 'transmitted'">
+                                                                Übermittlung: </xsl:when>
+                                                        </xsl:choose>
+                                                    </th>
+                                                    <td> </td>
+                                                    <td>
+                                                        <xsl:if test="./tei:date">
+                                                            <xsl:value-of select="./tei:date"/>
+                                                            <br/>
+                                                        </xsl:if>
+                                                        <xsl:for-each select="child::tei:persName">
+                                                            <a class="theme-color">
+                                                                <xsl:attribute name="href">
+                                                                    <xsl:value-of
+                                                                        select="concat(replace((@ref), '#', ''), '.html')"
+                                                                    />
+                                                                </xsl:attribute>
+                                                                <xsl:value-of select="."/>
+                                                            </a>
+                                                            <xsl:choose>
+                                                                <xsl:when test="not(position() = last())">
+                                                                    <xsl:text>; </xsl:text>
+                                                                </xsl:when>
+                                                                <xsl:otherwise>
+                                                                    <br/>
+                                                                </xsl:otherwise>
+                                                            </xsl:choose>
+                                                        </xsl:for-each>
+                                                        <xsl:for-each select="child::tei:placeName">
+                                                            <span class="places corresp-action-place">
+                                                                <a class="theme-color">
+                                                                    <xsl:attribute name="href">
+                                                                        <xsl:value-of
+                                                                            select="concat(replace((@ref), '#', ''), '.html')"
+                                                                        />
+                                                                    </xsl:attribute>
+                                                                    <xsl:value-of select="."/>
+                                                                </a>
+                                                            </span>
+                                                            <xsl:choose>
+                                                                <xsl:when test="not(position() = last())">
+                                                                    <xsl:text>; </xsl:text>
+                                                                </xsl:when>
+                                                                <xsl:otherwise>
+                                                                    <br/>
+                                                                </xsl:otherwise>
+                                                            </xsl:choose>
+                                                        </xsl:for-each>
+                                                    </td>
+                                                </tr>
+                                            </xsl:for-each>
+                                        </tbody>
+                                    </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="sf-col-4">
                                 <div class="sf-panel sf-panel--corresp">
                                     <div class="sf-panel__title"
                                         onclick="this.closest('.sf-panel').classList.toggle('sf-panel--collapsed')"
@@ -918,114 +1031,7 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Schließen"/>
                             </div>
-                            <div class="modal-body">
-                                <!-- Postwegkarte -->
-                                <xsl:if test="
-                                        exists(for $r in //tei:correspAction/tei:placeName/@ref
-                                        return
-                                            $back//tei:place[@xml:id = substring-after(string($r), '#')]/tei:location[@type = 'coords']/tei:geo)">
-                                    <div id="corresp-route-map"
-                                        style="height:250px;width:100%;margin-bottom:0.5em;border-radius:4px;border:1px solid #dee2e6;"/>
-                                    <div style="font-size:0.8em;margin-bottom:0.75em;color:#555;">
-                                        <span
-                                            style="display:inline-block;width:12px;height:12px;border-radius:50%;background:#c0392b;margin-right:4px;vertical-align:middle;"/>
-                                        <xsl:text>Versand&#160;&#160;</xsl:text>
-                                        <span
-                                            style="display:inline-block;width:12px;height:12px;border-radius:50%;background:#2980b9;margin-right:4px;vertical-align:middle;"/>
-                                        <xsl:text>Empfang</xsl:text>
-                                    </div>
-                                    <script>(function(){
-var mapPoints=[<xsl:for-each select="//tei:correspAction[tei:placeName/@ref]"><xsl:variable name="action-type" select="@type"/><xsl:for-each select="tei:placeName[@ref]"><xsl:variable name="place-id" select="substring-after(@ref, '#')"/><xsl:variable name="geo" select="$back//tei:place[@xml:id = $place-id]/tei:location[@type = 'coords']/tei:geo[1]"/><xsl:if test="$geo">{lat:<xsl:value-of select="replace(tokenize(string($geo), ' ')[1], ',', '.')"/>,lng:<xsl:value-of select="replace(tokenize(string($geo), ' ')[2], ',', '.')"/>,type:'<xsl:value-of select="$action-type"/>',name:'<xsl:value-of select="normalize-space(.)"/>'},</xsl:if></xsl:for-each></xsl:for-each>];
-document.getElementById('ueberlieferung').addEventListener('shown.bs.modal',function(){
-var el=document.getElementById('corresp-route-map');
-if(!el||el._leaflet_id){return;}
-var map=L.map(el);
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-attribution:'&#169; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',maxZoom:18
-}).addTo(map);
-mapPoints.forEach(function(p,i){
-for(var j=0;j!==i;j++){if(Math.round((mapPoints[j].lat-p.lat)*10000)===0){if(Math.round((mapPoints[j].lng-p.lng)*10000)===0){mapPoints[j].lat-=0.001;mapPoints[j].lng-=0.001;p.lat+=0.001;p.lng+=0.001;}}}
-});
-var pts=[];
-mapPoints.forEach(function(p){
-var col=p.type==='sent'?'#c0392b':(p.type==='received'?'#2980b9':'#7f8c8d');
-L.circleMarker([p.lat,p.lng],{radius:8,fillColor:col,color:'#fff',weight:2,opacity:1,fillOpacity:0.9}).addTo(map).bindPopup(p.name);
-pts.push([p.lat,p.lng]);
-});
-if(pts[1]){L.polyline(pts,{color:'#888',weight:2,dashArray:'4,4'}).addTo(map);map.fitBounds(L.latLngBounds(pts).pad(0.3),{maxZoom:10});}
-else if(pts[0]){map.setView(pts[0],10);}
-});
-})();</script>
-                                </xsl:if>
-                                <table class="table table-striped align-top">
-                                    <tbody>
-                                        <xsl:for-each select="//tei:correspAction">
-                                            <tr>
-                                                <th>
-                                                  <xsl:choose>
-                                                  <xsl:when test="@type = 'sent'"> Versand: </xsl:when>
-                                                  <xsl:when test="@type = 'received'"> Empfang: </xsl:when>
-                                                  <xsl:when test="@type = 'forwarded'">
-                                                  Weiterleitung: </xsl:when>
-                                                  <xsl:when test="@type = 'redirected'"> Umleitung: </xsl:when>
-                                                  <xsl:when test="@type = 'delivered'"> Zustellung: </xsl:when>
-                                                  <xsl:when test="@type = 'transmitted'">
-                                                  Übermittlung: </xsl:when>
-                                                  </xsl:choose>
-                                                </th>
-                                                <td> </td>
-                                                <td>
-                                                  <xsl:if test="./tei:date">
-                                                  <xsl:value-of select="./tei:date"/>
-                                                  <br/>
-                                                  </xsl:if>
-                                                  <xsl:for-each select="child::tei:persName">
-                                                  <a class="theme-color">
-                                                  <xsl:attribute name="href">
-                                                  <xsl:value-of
-                                                  select="concat(replace((@ref), '#', ''), '.html')"
-                                                  />
-                                                  </xsl:attribute>
-                                                  <xsl:value-of select="."/>
-                                                  </a>
-                                                  <xsl:choose>
-                                                  <xsl:when test="not(position() = last())">
-                                                  <xsl:text>; </xsl:text>
-                                                  </xsl:when>
-                                                  <xsl:otherwise>
-                                                  <br/>
-                                                  </xsl:otherwise>
-                                                  </xsl:choose>
-                                                  </xsl:for-each>
-                                                  <xsl:for-each select="child::tei:placeName">
-                                                  <span class="places corresp-action-place">
-                                                  <a class="theme-color">
-                                                  <xsl:attribute name="href">
-                                                  <xsl:value-of
-                                                  select="concat(replace((@ref), '#', ''), '.html')"
-                                                  />
-                                                  </xsl:attribute>
-                                                  <xsl:value-of select="."/>
-                                                  </a>
-                                                  </span>
-                                                  <xsl:choose>
-                                                  <xsl:when test="not(position() = last())">
-                                                  <xsl:text>; </xsl:text>
-                                                  </xsl:when>
-                                                  <xsl:otherwise>
-                                                  <br/>
-                                                  </xsl:otherwise>
-                                                  </xsl:choose>
-                                                  </xsl:for-each>
-                                                </td>
-                                            </tr>
-                                        </xsl:for-each>
-                                    </tbody>
-                                </table>
-                                <br/>
-                                <!-- Modal Überlieferung -->
-                                <div class="modal-body"> </div>
-                            </div>
+                            
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary"
                                     data-bs-dismiss="modal">Schließen</button>
