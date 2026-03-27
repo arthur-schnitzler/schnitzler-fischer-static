@@ -740,9 +740,7 @@
                                     <!-- sf-panel__body -->
                                 </div>
                             </div>
-                        </div>
                         <!-- 4) Faksimile -->
-                        <div class="sf-panels-row">
                             <xsl:if test="descendant::tei:facsimile/tei:graphic">
                                 <div class="sf-col-4">
                                     <div class="sf-panel sf-panel--faksimile">
@@ -826,11 +824,8 @@
                                 </div>
                             </div>
                             <!-- /sf-col-4 Zitat -->
-                            
-                            <!-- /sf-col-4 Link -->
-                        </div>
-                        <!-- 5+6) OCR und Schnitzler-Chronik -->
-                        <div class="sf-panels-row">
+
+                            <!-- 5+6) OCR und Schnitzler-Chronik -->
                             <div class="sf-col-4">
                                 <div class="sf-panel sf-panel--ocr">
                                     <div class="sf-panel__title"
