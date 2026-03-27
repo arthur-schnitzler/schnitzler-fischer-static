@@ -873,6 +873,16 @@
                                                   <xsl:with-param name="fetchContentsFromURL"
                                                   select="$fetchContentsFromURL" as="node()?"/>
                                                   </xsl:call-template>
+                                                  <script>document.addEventListener('DOMContentLoaded', function() {
+                                                  setTimeout(function() {
+                                                  if (typeof window.initWienerschnitzlerMap === 'function') {
+                                                  if (!window._wienerschnitzlerMapInitialized) {
+                                                  window.initWienerschnitzlerMap();
+                                                  window._wienerschnitzlerMapInitialized = true;
+                                                  }
+                                                  }
+                                                  }, 500);
+                                                  });</script>
                                                   </div>
                                                   </div>
                                                   <div class="modal-footer">
