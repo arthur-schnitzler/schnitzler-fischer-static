@@ -300,8 +300,8 @@ class SimpleCalendar {
         }
         
         .filter-toggle[data-category="as-sender"] .filter-dot {
-          border-color: #aaa;
-          background-color: #fff;
+          border-color: rgb(61, 79, 159);
+          background-color: rgb(61, 79, 159);
         }
 
         .filter-toggle[data-category="as-empf"] .filter-dot {
@@ -313,9 +313,9 @@ class SimpleCalendar {
         }
 
         .filter-toggle.active[data-category="as-sender"] {
-          background: #fff;
-          color: #333;
-          border-color: #aaa;
+          background: rgb(61, 79, 159);
+          color: white;
+          border-color: rgb(61, 79, 159);
         }
 
         .filter-toggle.active[data-category="as-empf"] {

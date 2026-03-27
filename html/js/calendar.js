@@ -62,7 +62,7 @@ function showEventsModal(events, date) {
   
   // Category colors mapping
   const categoryColors = {
-    'as-sender': '#333',       // Von Schnitzler (dark text for white bg)
+    'as-sender': 'rgb(61, 79, 159)',  // Von Schnitzler
     'as-empf': '#2A9D8F',      // Von Fischer (teal)
     'umfeld': '#68825b'        // Von Dritten (green)
   };
@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Initialize SimpleCalendar
   calendar = new SimpleCalendar('calendar', {
-    startYear: 1900,
+    startYear: 1912,
     dataSource: data,  // Use all data, filtering is handled inside SimpleCalendar
     clickDay: handleDayClick
   });
