@@ -280,7 +280,6 @@
                                         onclick="this.closest('.sf-panel').classList.toggle('sf-panel--collapsed')"
                                         >Archive und Veröffentlichungen</div>
                                     <div class="sf-panel__body">
-                                        <xsl:variable name="notesStmt" select="descendant::tei:teiHeader[1]/tei:fileDesc[1]/tei:notesStmt[1]" as="node()"/>
                                         <xsl:for-each select="descendant::tei:witness">
                                             <h5>ZEUGE <xsl:value-of select="@n"/>
                                             </h5>
@@ -315,15 +314,7 @@
                                                   <xsl:apply-templates
                                                   select="child::tei:msDesc/tei:physDesc/tei:objectDesc"
                                                   />
-                                                      <xsl:if test="@n='1'">
-                                                          <xsl:for-each select="$notesStmt/descendant::tei:note">
-                                                              <xsl:apply-templates select="."/>
-                                                              <xsl:if test="not(position()=last())">
-                                                                  <br/>
-                                                              </xsl:if>
-                                                          </xsl:for-each>
-                                                          
-                                                      </xsl:if>
+                                                     
                                                   </td>
                                                   </tr>
                                                   <xsl:if
@@ -368,6 +359,15 @@
                                                 </tbody>
                                             </table>
                                         </xsl:for-each>
+                                        <h5>BESCHREIBUNG</h5>
+                                                                                                  <xsl:for-each select="descendant::tei:notesStmt/tei:note">
+                                                              <xsl:apply-templates select="."/>
+                                                              <xsl:if test="not(position()=last())">
+                                                                  <br/>
+                                                              </xsl:if>
+                                                          </xsl:for-each>
+
+                                        <p></p>
                                     </div>
                                 </div>
                             </div>
