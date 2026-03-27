@@ -827,7 +827,7 @@
 
                             <!-- 5+6) OCR und Schnitzler-Chronik -->
                             <div class="sf-col-4">
-                                <div class="sf-panel sf-panel--ocr">
+                                <div class="sf-panel sf-panel--ocr sf-panel--ocr-truncated">
                                     <div class="sf-panel__title"
                                         onclick="this.closest('.sf-panel').classList.toggle('sf-panel--collapsed')"
                                         >OCR</div>
@@ -846,6 +846,9 @@
                                             </xsl:otherwise>
                                         </xsl:choose>
                                     </div>
+                                    <div class="sf-ocr-expand"
+                                        onclick="this.closest('.sf-panel').classList.toggle('sf-panel--ocr-truncated')"
+                                        title="OCR-Text ein-/ausklappen"/>
                                 </div>
                             </div>
                             <div class="sf-col-4">
@@ -854,151 +857,124 @@
                                         onclick="this.closest('.sf-panel').classList.toggle('sf-panel--collapsed')"
                                         >Schnitzler-Chronik</div>
                                     <div class="sf-panel__body">
-                                        <div id="schnitzler-chronik-modal" tabindex="-1"
-                                            aria-labelledby="downloadModalLabel2" aria-hidden="true">
-                                            <xsl:variable name="datum-iso">
-                                                <xsl:variable name="date"
-                                                  select="descendant::tei:correspDesc/tei:correspAction[@type = 'sent'][1]/tei:date"
-                                                  as="node()?"/>
+                                        <xsl:variable name="datum-iso">
+                                            <xsl:variable name="date"
+                                                select="descendant::tei:correspDesc/tei:correspAction[@type = 'sent'][1]/tei:date"
+                                                as="node()?"/>
+                                            <xsl:choose>
+                                                <xsl:when test="$date/@when">
+                                                    <xsl:value-of select="$date/@when"/>
+                                                </xsl:when>
+                                                <xsl:when test="$date/@from">
+                                                    <xsl:value-of select="$date/@from"/>
+                                                </xsl:when>
+                                                <xsl:when test="$date/@notBefore">
+                                                    <xsl:value-of select="$date/@notBefore"/>
+                                                </xsl:when>
+                                                <xsl:when test="$date/@to">
+                                                    <xsl:value-of select="$date/@to"/>
+                                                </xsl:when>
+                                                <xsl:otherwise>
+                                                    <xsl:value-of select="$date/@notAfter"/>
+                                                </xsl:otherwise>
+                                            </xsl:choose>
+                                        </xsl:variable>
+                                        <xsl:variable name="datum-written" select="
+                                                format-date($datum-iso, '[D1].&#160;[M1].&#160;[Y0001]',
+                                                'en',
+                                                'AD',
+                                                'EN')"/>
+                                        <xsl:variable name="wochentag">
+                                            <xsl:choose>
+                                                <xsl:when test="
+                                                          format-date($datum-iso, '[F]',
+                                                          'en',
+                                                          'AD',
+                                                          'EN') = 'Monday'">
+                                                    <xsl:text>Montag</xsl:text>
+                                                </xsl:when>
+                                                <xsl:when test="
+                                                          format-date($datum-iso, '[F]',
+                                                          'en',
+                                                          'AD',
+                                                          'EN') = 'Tuesday'">
+                                                    <xsl:text>Dienstag</xsl:text>
+                                                </xsl:when>
+                                                <xsl:when test="
+                                                          format-date($datum-iso, '[F]',
+                                                          'en',
+                                                          'AD',
+                                                          'EN') = 'Wednesday'">
+                                                    <xsl:text>Mittwoch</xsl:text>
+                                                </xsl:when>
+                                                <xsl:when test="
+                                                          format-date($datum-iso, '[F]',
+                                                          'en',
+                                                          'AD',
+                                                          'EN') = 'Thursday'">
+                                                    <xsl:text>Donnerstag</xsl:text>
+                                                </xsl:when>
+                                                <xsl:when test="
+                                                          format-date($datum-iso, '[F]',
+                                                          'en',
+                                                          'AD',
+                                                          'EN') = 'Friday'">
+                                                    <xsl:text>Freitag</xsl:text>
+                                                </xsl:when>
+                                                <xsl:when test="
+                                                          format-date($datum-iso, '[F]',
+                                                          'en',
+                                                          'AD',
+                                                          'EN') = 'Saturday'">
+                                                    <xsl:text>Samstag</xsl:text>
+                                                </xsl:when>
+                                                <xsl:when test="
+                                                          format-date($datum-iso, '[F]',
+                                                          'en',
+                                                          'AD',
+                                                          'EN') = 'Sunday'">
+                                                    <xsl:text>Sonntag</xsl:text>
+                                                </xsl:when>
+                                                <xsl:otherwise>
+                                                    <xsl:text>DATUMSFEHLER</xsl:text>
+                                                </xsl:otherwise>
+                                            </xsl:choose>
+                                        </xsl:variable>
+                                        <h5>
+                                            <a href="{concat('https://schnitzler-chronik.acdh.oeaw.ac.at/', $datum-iso, '.html')}"
+                                                target="_blank" style="color: #008B8B">
+                                                <xsl:value-of select="concat($wochentag, ', ', $datum-written)"/>
+                                            </a>
+                                        </h5>
+                                        <div id="chronik-modal-body">
+                                            <!-- SCHNITZLER-CHRONIK. Zuerst wird der Eintrag geladen, weil das schneller ist, wenn er lokal vorliegt -->
+                                            <xsl:variable name="fetchContentsFromURL" as="node()?">
                                                 <xsl:choose>
-                                                  <xsl:when test="$date/@when">
-                                                  <xsl:value-of select="$date/@when"/>
-                                                  </xsl:when>
-                                                  <xsl:when test="$date/@from">
-                                                  <xsl:value-of select="$date/@from"/>
-                                                  </xsl:when>
-                                                  <xsl:when test="$date/@notBefore">
-                                                  <xsl:value-of select="$date/@notBefore"/>
-                                                  </xsl:when>
-                                                  <xsl:when test="$date/@to">
-                                                  <xsl:value-of select="$date/@to"/>
-                                                  </xsl:when>
-                                                  <xsl:otherwise>
-                                                  <xsl:value-of select="$date/@notAfter"/>
-                                                  </xsl:otherwise>
+                                                    <xsl:when test="$schnitzler-chronik_fetch-locally">
+                                                        <xsl:copy-of select="document(concat('../chronik-data/', $datum-iso, '.xml'))"/>
+                                                        <!-- das geht davon aus, dass das schnitzler-chronik-repo lokal vorliegt -->
+                                                    </xsl:when>
+                                                    <xsl:otherwise>
+                                                        <xsl:copy-of select="document(concat('https://raw.githubusercontent.com/arthur-schnitzler/schnitzler-chronik-data/refs/heads/main/editions/data/', $datum-iso, '.xml'))"/>
+                                                    </xsl:otherwise>
                                                 </xsl:choose>
                                             </xsl:variable>
-                                            <xsl:variable name="datum-written" select="
-                                                    format-date($datum-iso, '[D1].&#160;[M1].&#160;[Y0001]',
-                                                    'en',
-                                                    'AD',
-                                                    'EN')"/>
-                                            <xsl:variable name="wochentag">
-                                                <xsl:choose>
-                                                  <xsl:when test="
-                                                            format-date($datum-iso, '[F]',
-                                                            'en',
-                                                            'AD',
-                                                            'EN') = 'Monday'">
-                                                  <xsl:text>Montag</xsl:text>
-                                                  </xsl:when>
-                                                  <xsl:when test="
-                                                            format-date($datum-iso, '[F]',
-                                                            'en',
-                                                            'AD',
-                                                            'EN') = 'Tuesday'">
-                                                  <xsl:text>Dienstag</xsl:text>
-                                                  </xsl:when>
-                                                  <xsl:when test="
-                                                            format-date($datum-iso, '[F]',
-                                                            'en',
-                                                            'AD',
-                                                            'EN') = 'Wednesday'">
-                                                  <xsl:text>Mittwoch</xsl:text>
-                                                  </xsl:when>
-                                                  <xsl:when test="
-                                                            format-date($datum-iso, '[F]',
-                                                            'en',
-                                                            'AD',
-                                                            'EN') = 'Thursday'">
-                                                  <xsl:text>Donnerstag</xsl:text>
-                                                  </xsl:when>
-                                                  <xsl:when test="
-                                                            format-date($datum-iso, '[F]',
-                                                            'en',
-                                                            'AD',
-                                                            'EN') = 'Friday'">
-                                                  <xsl:text>Freitag</xsl:text>
-                                                  </xsl:when>
-                                                  <xsl:when test="
-                                                            format-date($datum-iso, '[F]',
-                                                            'en',
-                                                            'AD',
-                                                            'EN') = 'Saturday'">
-                                                  <xsl:text>Samstag</xsl:text>
-                                                  </xsl:when>
-                                                  <xsl:when test="
-                                                            format-date($datum-iso, '[F]',
-                                                            'en',
-                                                            'AD',
-                                                            'EN') = 'Sunday'">
-                                                  <xsl:text>Sonntag</xsl:text>
-                                                  </xsl:when>
-                                                  <xsl:otherwise>
-                                                  <xsl:text>DATUMSFEHLER</xsl:text>
-                                                  </xsl:otherwise>
-                                                </xsl:choose>
-                                            </xsl:variable>
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                  <div class="modal-header">
-                                                  <h5 class="modal-title"
-                                                  id="exampleModalLongTitle3">
-                                                  <a
-                                                  href="{concat('https://schnitzler-chronik.acdh.oeaw.ac.at/', $datum-iso, '.html')}"
-                                                  target="_blank" style="color: #008B8B">
-                                                  <xsl:value-of
-                                                  select="concat($wochentag, ', ', $datum-written)"
-                                                  />
-                                                  </a>
-                                                  </h5>
-                                                  </div>
-                                                  <div class="modal-body">
-                                                  <div id="chronik-modal-body">
-                                                  <!-- SCHNITZLER-CHRONIK. Zuerst wird der Eintrag geladen, weil das schneller ist, wenn er lokal vorliegt -->
-                                                  <xsl:variable name="fetchContentsFromURL"
-                                                  as="node()?">
-                                                  <xsl:choose>
-                                                  <xsl:when test="$schnitzler-chronik_fetch-locally">
-                                                  <xsl:copy-of
-                                                  select="document(concat('../chronik-data/', $datum-iso, '.xml'))"/>
-                                                  <!-- das geht davon aus, dass das schnitzler-chronik-repo lokal vorliegt -->
-                                                  </xsl:when>
-                                                  <xsl:otherwise>
-                                                  <xsl:copy-of
-                                                  select="document(concat('https://raw.githubusercontent.com/arthur-schnitzler/schnitzler-chronik-data/refs/heads/main/editions/data/', $datum-iso, '.xml'))"
-                                                  />
-                                                  </xsl:otherwise>
-                                                  </xsl:choose>
-                                                  </xsl:variable>
-                                                  <xsl:call-template name="mam:schnitzler-chronik">
-                                                  <xsl:with-param name="datum-iso"
-                                                  select="$datum-iso"/>
-                                                  <xsl:with-param name="current-type"
-                                                  select="$schnitzler-chronik_current-type"/>
-                                                  <xsl:with-param name="teiSource"
-                                                  select="$teiSource"/>
-                                                  <xsl:with-param name="fetchContentsFromURL"
-                                                  select="$fetchContentsFromURL" as="node()?"/>
-                                                  </xsl:call-template>
-                                                  <script>document.addEventListener('DOMContentLoaded', function() {
-                                                  setTimeout(function() {
-                                                  if (typeof window.initWienerschnitzlerMap === 'function') {
-                                                  if (!window._wienerschnitzlerMapInitialized) {
-                                                  window.initWienerschnitzlerMap();
-                                                  window._wienerschnitzlerMapInitialized = true;
-                                                  }
-                                                  }
-                                                  }, 500);
-                                                  });</script>
-                                                  </div>
-                                                  </div>
-                                                  <div class="modal-footer">
-                                                  <button type="button" class="btn btn-secondary"
-                                                  data-bs-dismiss="modal">Schließen</button>
-                                                  </div>
-                                                </div>
-                                            </div>
+                                            <xsl:call-template name="mam:schnitzler-chronik">
+                                                <xsl:with-param name="datum-iso" select="$datum-iso"/>
+                                                <xsl:with-param name="current-type" select="$schnitzler-chronik_current-type"/>
+                                                <xsl:with-param name="teiSource" select="$teiSource"/>
+                                                <xsl:with-param name="fetchContentsFromURL" select="$fetchContentsFromURL" as="node()?"/>
+                                            </xsl:call-template>
+                                            <script>document.addEventListener('DOMContentLoaded', function() {
+                                                setTimeout(function() {
+                                                    if (typeof window.initWienerschnitzlerMap === 'function') {
+                                                        if (!window._wienerschnitzlerMapInitialized) {
+                                                            window.initWienerschnitzlerMap();
+                                                            window._wienerschnitzlerMapInitialized = true;
+                                                        }
+                                                    }
+                                                }, 500);
+                                            });</script>
                                         </div>
                                     </div>
                                 </div>
