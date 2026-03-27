@@ -28,10 +28,28 @@ div#map {
     letter-spacing: 0.09em;
     text-transform: uppercase;
     color: #fff;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+}
+.sf-panel__title::after {
+    content: '▾';
+    font-size: 1rem;
+    line-height: 1;
+    transition: transform 0.2s ease;
+}
+.sf-panel--collapsed .sf-panel__title::after {
+    transform: rotate(-90deg);
 }
 .sf-panel__body {
     padding: 1rem;
     background: #fff;
+    overflow: hidden;
+}
+.sf-panel--collapsed .sf-panel__body {
+    display: none;
 }
 .sf-panel--navigation { border: 2px solid #3d5a80; }
 .sf-panel--navigation .sf-panel__title { background: #3d5a80; }
@@ -45,6 +63,15 @@ div#map {
 .sf-panel--ocr .sf-panel__title        { background: #4a5568; }
 .sf-panel--faksimile  { border: 2px solid #4a6741; }
 .sf-panel--faksimile .sf-panel__title  { background: #4a6741; }
+.sf-panel--zitat      { border: 2px solid #5b4a8a; }
+.sf-panel--zitat .sf-panel__title      { background: #5b4a8a; }
+.sf-panel--link       { border: 2px solid #1a6b8a; }
+.sf-panel--link .sf-panel__title       { background: #1a6b8a; }
+
+.sf-entity-list {
+    margin-top: 0.5em;
+    padding-left: 0.75em;
+}
 
 .sf-panels-row {
     display: flex;

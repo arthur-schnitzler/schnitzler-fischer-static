@@ -29,7 +29,10 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="toc.html">Editionseinheiten</a>
+                                <a class="nav-link" href="toc.html">Inhalt</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="correspaction.html">Postwege</a>
                             </li>
 
                             <li class="nav-item">
@@ -63,6 +66,7 @@
                                     <li><a class="dropdown-item" href="https://de.wikipedia.org/wiki/Arthur_Schnitzlers_Korrespondenz" target="_blank">Schnitzlers Korrespondenz (Wikipedia)</a></li>
                                     <li><a class="dropdown-item" href="https://www.geschichtewiki.wien.gv.at/Arthur_Schnitzler" target="_blank">Wien Geschichte Wiki</a></li>
                                     <li><a class="dropdown-item" href="https://schnitzler-tagebuch.acdh.oeaw.ac.at/" target="_blank">Tagebuch (1879–1931)</a></li>
+                                    <li><a class="dropdown-item" href="https://schnitzler-briefe.acdh.oeaw.ac.at/" target="_blank">Briefwechsel mit Autorinnen und Autoren</a></li>
                                     <li><a class="dropdown-item" href="https://www.arthur-schnitzler.de" target="_blank">Werke digital (1905–1931)</a></li>
                                     <li><a class="dropdown-item" href="https://schnitzler-mikrofilme.acdh.oeaw.ac.at/" target="_blank">Mikrofilme</a></li>
                                     <li><a class="dropdown-item" href="https://schnitzler-zeitungen.acdh.oeaw.ac.at/" target="_blank">Archiv der Zeitungsausschnitte</a></li>

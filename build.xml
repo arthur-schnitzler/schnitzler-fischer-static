@@ -18,7 +18,7 @@
         <factory name="net.sf.saxon.TransformerFactoryImpl"/>
         <classpath location="${basedir}/saxon/saxon9he.jar"/>
     </xslt>
-    <xslt style="./xslt/editions.xsl"  basedir="./data/editions" destdir="${target}" includes="sf_100*.xml">
+    <xslt style="./xslt/editions.xsl"  basedir="./data/editions" destdir="${target}" includes="sf_*.xml">
         <factory name="net.sf.saxon.TransformerFactoryImpl"/>
         <classpath location="${basedir}/saxon/saxon9he.jar"/>
     </xslt>
@@ -58,7 +58,12 @@
         <factory name="net.sf.saxon.TransformerFactoryImpl"/>
         <classpath location="${basedir}/saxon/saxon9he.jar"/>
     </xslt>
-    <!-- <xslt in="./data/indices/listperson.xml" out="${target}/beacon.txt" style="./xslt/beacon.xsl">
+    <xslt in="./xslt/correspaction.xsl" out="${target}/correspaction.html"
+        style="./xslt/correspaction.xsl">
+        <factory name="net.sf.saxon.TransformerFactoryImpl"/>
+        <classpath location="${basedir}/saxon/saxon9he.jar"/>
+    </xslt>
+    <xslt in="./data/indices/listperson.xml" out="${target}/beacon.txt" style="./xslt/beacon.xsl">
         <factory name="net.sf.saxon.TransformerFactoryImpl"/>
         <classpath location="${basedir}/saxon/saxon9he.jar"/>
     </xslt>
@@ -66,7 +71,7 @@
         <factory name="net.sf.saxon.TransformerFactoryImpl"/>
         <classpath location="${basedir}/saxon/saxon9he.jar"/>
     </xslt>
-  -->  <replace dir="${target}" value="">
+   <replace dir="${target}" value="">
         <include name="*.html"/>
         <replacetoken> xmlns=""</replacetoken>
     </replace>
@@ -79,9 +84,9 @@
         <include name="*.html"/>
         <replacetoken>xmlns="http://www.w3.org/1999/xhtml"</replacetoken>
     </replace>
-    <copy todir="${target}" flatten="true">
+    <!--<copy todir="${target}" flatten="true">
         <fileset dir="./data/">
             <include name="**/*.xml"/>
         </fileset>
-    </copy>
+    </copy>-->
 </project>

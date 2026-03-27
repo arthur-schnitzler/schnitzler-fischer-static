@@ -2,7 +2,16 @@
   "permissions": {
     "allow": [
       "Bash(python3 -c \":*)",
-      "Bash(xmllint --noout xslt/editions.xsl)"
+      "Bash(xmllint --noout xslt/editions.xsl)",
+      "Bash(git -C /Users/oldfiche/git/schnitzler-fischer-static diff html/css/style.css)",
+      "Bash(do if:*)",
+      "Bash(! grep:*)",
+      "Bash(then echo:*)",
+      "Bash(git -C /Users/oldfiche/git/schnitzler-fischer-static diff xslt/partials/html_title_navigation.xsl xslt/editions.xsl)",
+      "Bash(git -C /Users/oldfiche/git/schnitzler-fischer-static diff xslt/partials/html_title_navigation.xsl)",
+      "Bash(git -C /Users/oldfiche/git/schnitzler-fischer-static show HEAD:xslt/partials/html_title_navigation.xsl)",
+      "Bash(grep -rL \"subtype=\" /Users/oldfiche/git/schnitzler-fischer-static/data/editions/sf_*.xml)",
+      "Bash(ant)"
     ]
   }
 }
