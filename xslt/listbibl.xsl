@@ -24,39 +24,37 @@
             <script src="https://code.highcharts.com/modules/networkgraph.js"/>
             <script src="https://code.highcharts.com/modules/exporting.js"/>
             <body class="page">
-                <div class="hfeed site" id="page">
+                <div id="page">
                     <xsl:call-template name="nav_bar"/>
-                    <div class="container">
-                        <div class="card">
-                            <div class="card-header" style="text-align:center">
-                                <h1>
-                                    <xsl:value-of select="$doc_title"/>
-                                </h1>
+                    <div class="container-fluid" style="padding: 1rem 1.5rem;">
+                        <div class="sf-panel sf-panel--corresp" id="chart-container">
+                            <div class="sf-panel__title">
+                                <span>Netzwerkdiagramm</span>
+                                <button type="button" class="btn btn-sm btn-link float-end text-white p-0 lh-1"
+                                    onclick="document.getElementById('chart-container').style.display='none'"
+                                    aria-label="Charts ausblenden" style="font-size:1.1rem; line-height:1;">×</button>
                             </div>
-                            <div class="card-body">
-                                <div id="chart-container" class="border rounded p-3 mb-3" style="background-color: white;">
-                                    <div class="d-flex justify-content-end mb-2">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="document.getElementById('chart-container').style.display='none'" aria-label="Charts ausblenden">×</button>
-                                    </div>
-                                    <div id="container"
-                                        style="padding-bottom: 20px; width:100%; margin: auto"/>
-                                    <div id="chart-buttons" class="text-center mt-3"
-                                        style="margin: auto; padding-bottom: 20px">
-                                        <button class="btn mx-1 chart-btn"
-                                            style="background-color: #A63437; color: white; border: none; padding: 5px 10px; font-size: 0.875rem;"
-                                            data-csv="https://raw.githubusercontent.com/arthur-schnitzler/schnitzler-briefe-charts/main/netzwerke/work_freq_corp_weights_directed/work_freq_corp_weights_directed_top30.csv"
-                                            >Top 30</button>
-                                        <button class="btn mx-1 chart-btn"
-                                            style="background-color: #A63437; color: white; border: none; padding: 5px 10px; font-size: 0.875rem;"
-                                            data-csv="https://raw.githubusercontent.com/arthur-schnitzler/schnitzler-briefe-charts/main/netzwerke/work_freq_corp_weights_directed/work_freq_corp_weights_directed_top100.csv"
-                                            >Top 100</button>
-                                        <button class="btn mx-1 chart-btn"
-                                            style="background-color: #A63437; color: white; border: none; padding: 5px 10px; font-size: 0.875rem;"
-                                            data-csv="https://raw.githubusercontent.com/arthur-schnitzler/schnitzler-briefe-static/main/netzwerke/work_freq_corp_weights_directed/work_freq_corp_weights_directed_top500.csv"
-                                            >Top 500</button>
-                                    </div>
-                                    <script src="js/work_freq_corp_weights_directed.js"/>
+                            <div class="sf-panel__body">
+                                <div id="container" style="padding-bottom: 20px; width:100%; margin: auto"/>
+                                <div id="chart-buttons" class="text-center mt-3" style="padding-bottom: 20px;">
+                                    <button class="btn btn-sm btn-outline-secondary mx-1 chart-btn"
+                                        data-csv="https://raw.githubusercontent.com/arthur-schnitzler/schnitzler-briefe-charts/main/netzwerke/work_freq_corp_weights_directed/work_freq_corp_weights_directed_top30.csv"
+                                        >Top 30</button>
+                                    <button class="btn btn-sm btn-outline-secondary mx-1 chart-btn"
+                                        data-csv="https://raw.githubusercontent.com/arthur-schnitzler/schnitzler-briefe-charts/main/netzwerke/work_freq_corp_weights_directed/work_freq_corp_weights_directed_top100.csv"
+                                        >Top 100</button>
+                                    <button class="btn btn-sm btn-outline-secondary mx-1 chart-btn"
+                                        data-csv="https://raw.githubusercontent.com/arthur-schnitzler/schnitzler-briefe-static/main/netzwerke/work_freq_corp_weights_directed/work_freq_corp_weights_directed_top500.csv"
+                                        >Top 500</button>
                                 </div>
+                                <script src="js/work_freq_corp_weights_directed.js"/>
+                            </div>
+                        </div>
+                        <div class="sf-panel sf-panel--corresp">
+                            <div class="sf-panel__title">
+                                <xsl:value-of select="$doc_title"/>
+                            </div>
+                            <div class="sf-panel__body">
                                 <table class="table table-sm display" id="tabulator-table-work">
                                     <thead>
                                         <tr>
@@ -227,16 +225,14 @@
                         <xsl:with-param name="html_title" select="$name"/>
                     </xsl:call-template>
                     <body class="page">
-                        <div class="hfeed site" id="page">
+                        <div id="page">
                             <xsl:call-template name="nav_bar"/>
-                            <div class="container-fluid">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h1 align="center">
-                                            <xsl:value-of select="$name"/>
-                                        </h1>
+                            <div class="container-fluid" style="padding: 1rem 1.5rem;">
+                                <div class="sf-panel sf-panel--corresp">
+                                    <div class="sf-panel__title">
+                                        <xsl:value-of select="$name"/>
                                     </div>
-                                    <div class="card-body">
+                                    <div class="sf-panel__body">
                                         <xsl:call-template name="work_detail"/>
                                     </div>
                                 </div>

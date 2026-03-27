@@ -22,17 +22,14 @@
             <script src="https://code.highcharts.com/modules/networkgraph.js"/>
             <script src="https://code.highcharts.com/modules/exporting.js"/>
             <body class="page">
-                <div class="hfeed site" id="page">
+                <div id="page">
                     <xsl:call-template name="nav_bar"/>
-                    <div class="container">
-                        <div class="card">
-                            <div class="card-header" style="text-align:center">
-                                <h1>
-                                    <xsl:value-of select="$doc_title"/>
-                                </h1>
+                    <div class="container-fluid" style="padding: 1rem 1.5rem;">
+                        <div class="sf-panel sf-panel--navigation">
+                            <div class="sf-panel__title">
+                                <xsl:value-of select="$doc_title"/>
                             </div>
-                            <div class="card-body">
-                                <!--<div class="text-center p-1"><span id="counter1"></span> von <span id="counter2"></span> Personen</div>-->
+                            <div class="sf-panel__body">
                                 <table class="table table-sm display" id="tabulator-table-person">
                                     <thead>
                                         <tr>
@@ -369,27 +366,21 @@
                         <xsl:with-param name="html_title" select="$name"/>
                     </xsl:call-template>
                     <body class="page">
-                        <div class="hfeed site" id="page">
+                        <div id="page">
                             <xsl:call-template name="nav_bar"/>
-                            <div class="container-fluid">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h2 align="center">
-                                            <xsl:value-of select="$name"/>
-                                            <xsl:text> </xsl:text>
-                                            <xsl:choose>
-                                                <xsl:when
-                                                  test="child::tei:birth and child::tei:death">
-                                                  <span class="lebensdaten">
-                                                  <xsl:text>(</xsl:text>
-                                                  <xsl:value-of select="mam:lebensdaten($entity)"/>
-                                                  <xsl:text>)</xsl:text>
-                                                  </span>
-                                                </xsl:when>
-                                            </xsl:choose>
-                                        </h2>
+                            <div class="container-fluid" style="padding: 1rem 1.5rem;">
+                                <div class="sf-panel sf-panel--navigation">
+                                    <div class="sf-panel__title">
+                                        <xsl:value-of select="$name"/>
+                                        <xsl:if test="child::tei:birth and child::tei:death">
+                                            <xsl:text> (</xsl:text>
+                                            <xsl:value-of select="mam:lebensdaten($entity)"/>
+                                            <xsl:text>)</xsl:text>
+                                        </xsl:if>
                                     </div>
-                                    <xsl:call-template name="person_detail"/>
+                                    <div class="sf-panel__body">
+                                        <xsl:call-template name="person_detail"/>
+                                    </div>
                                 </div>
                             </div>
                             <xsl:call-template name="html_footer"/>

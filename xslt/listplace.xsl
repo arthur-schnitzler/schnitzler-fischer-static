@@ -28,20 +28,16 @@
                 href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css"/>
             <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"/>
             <body class="page">
-                <div class="hfeed site" id="page">
+                <div id="page">
                     <xsl:call-template name="nav_bar"/>
-                    <div class="container">
-                        <div class="card">
-                            <div class="card-header" style="text-align:center">
-                                <h1>
-                                    <xsl:value-of select="$doc_title"/>
-                                </h1>
+                    <div class="container-fluid" style="padding: 1rem 1.5rem;">
+                        <div class="sf-panel sf-panel--archiv">
+                            <div class="sf-panel__title">
+                                <xsl:value-of select="$doc_title"/>
                             </div>
-                            <div class="card-body">
+                            <div class="sf-panel__body">
                                 <div id="map"/>
-                                <div style="display: flex; justify-content: center;">
-                                <table id="placesTable"
-                                    style="width:100%; margin: auto;">
+                                <table id="placesTable" style="width:100%; margin: auto;">
                                     <thead>
                                         <tr>
                                             <th scope="col">Ortsname</th>
@@ -99,7 +95,6 @@
                                         </xsl:for-each>
                                     </tbody>
                                 </table>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -123,16 +118,14 @@
                         <xsl:with-param name="html_title" select="$name"/>
                     </xsl:call-template>
                     <body class="page">
-                        <div class="hfeed site" id="page">
+                        <div id="page">
                             <xsl:call-template name="nav_bar"/>
-                            <div class="container-fluid">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h1 align="center">
-                                            <xsl:value-of select="$name"/>
-                                        </h1>
+                            <div class="container-fluid" style="padding: 1rem 1.5rem;">
+                                <div class="sf-panel sf-panel--archiv">
+                                    <div class="sf-panel__title">
+                                        <xsl:value-of select="$name"/>
                                     </div>
-                                    <div class="card-body">
+                                    <div class="sf-panel__body">
                                         <xsl:call-template name="place_detail"/>
                                     </div>
                                 </div>

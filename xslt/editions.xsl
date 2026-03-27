@@ -234,41 +234,38 @@
                 </xsl:if>
             </head>
             <body class="page">
-                <div class="hfeed site" id="page">
+                <div id="page">
                     <xsl:call-template name="nav_bar"/>
-                    <div class="container-fluid">
-                        <div class="wp-transcript">
-                            <!-- Wikipedia-compatible semantic structure with Schema.org microdata -->
-                            <article class="card" data-index="true" itemscope=""
-                                itemtype="http://schema.org/ScholarlyArticle">
-                                <link itemprop="mainEntityOfPage" href="{$quotationURL}"/>
-                                <meta itemprop="datePublished"
-                                    content="{//tei:titleStmt/tei:title[@type = 'iso-date']/@when-iso}"/>
-                                <meta itemprop="publisher"
-                                    content="Arthur Schnitzler: Briefwechsel mit Autorinnen und Autoren"/>
-                                <meta itemprop="isPartOf"
-                                    content="Arthur Schnitzler: Briefwechsel mit Autorinnen und Autoren. Digitale Edition"/>
-                                <!-- Author information from correspondence metadata -->
-                                <xsl:for-each
-                                    select="//tei:correspAction[@type = 'sent']/tei:persName">
-                                    <meta itemprop="author" itemscope=""
-                                        itemtype="http://schema.org/Person">
-                                        <xsl:attribute name="content">
-                                            <xsl:choose>
-                                                <xsl:when test="tei:surname and tei:forename">
-                                                  <xsl:value-of
-                                                  select="concat(tei:forename, ' ', tei:surname)"/>
-                                                </xsl:when>
-                                                <xsl:otherwise>
-                                                  <xsl:value-of select="normalize-space(.)"/>
-                                                </xsl:otherwise>
-                                            </xsl:choose>
-                                        </xsl:attribute>
-                                    </meta>
-                                </xsl:for-each>
-                                <header class="card-header">
-                                    <xsl:call-template name="header-nav"/>
-                                </header>
+                    <!-- Schema.org microdata (versteckt, JSON-LD im head ist primär) -->
+                    <div style="display:none" itemscope="" itemtype="http://schema.org/ScholarlyArticle" data-index="true">
+                        <link itemprop="mainEntityOfPage" href="{$quotationURL}"/>
+                        <meta itemprop="datePublished"
+                            content="{//tei:titleStmt/tei:title[@type = 'iso-date']/@when-iso}"/>
+                        <meta itemprop="publisher"
+                            content="Arthur Schnitzler: Briefwechsel mit Autorinnen und Autoren"/>
+                        <meta itemprop="isPartOf"
+                            content="Arthur Schnitzler: Briefwechsel mit Autorinnen und Autoren. Digitale Edition"/>
+                        <xsl:for-each select="//tei:correspAction[@type = 'sent']/tei:persName">
+                            <meta itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+                                <xsl:attribute name="content">
+                                    <xsl:choose>
+                                        <xsl:when test="tei:surname and tei:forename">
+                                            <xsl:value-of select="concat(tei:forename, ' ', tei:surname)"/>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:value-of select="normalize-space(.)"/>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:attribute>
+                            </meta>
+                        </xsl:for-each>
+                    </div>
+                    <div class="container-fluid" style="padding: 1rem 1.5rem;">
+                        <!-- 1) Navigation -->
+                        <div class="sf-panel sf-panel--navigation">
+                            <div class="sf-panel__title">Navigation</div>
+                            <div class="sf-panel__body">
+                                <xsl:call-template name="header-nav"/>
                                 <div id="navbarSupportedContent">
                                     <ul class="navbar-nav mb-2 mb-lg-0" id="secondary-menu">
                                         <li class="nav-item"> &#160;<a href="#"
@@ -284,24 +281,26 @@
                                                 data-bs-target="#schnitzler-chronik-modal"
                                                 type="button" data-bs-toggle="modal">
                                                 <i class="fas fa-calendar-day"/> Schnitzler-Chronik</a>&#160; </li>
-                                        <!--<li class="nav-item dropdown">
-                                    <span class="nav-link">
-                                        <div id="csLink" class="a.grau" data-correspondent-1-name=""
-                                            data-correspondent-1-id="all"
-                                            data-correspondent-2-name="" data-correspondent-2-id=""
-                                            data-start-date="{$datum}" data-end-date=""
-                                            data-range="50" data-selection-when="before-after"
-                                            data-selection-span="median-before-after"
-                                            data-result-max="4" data-exclude-edition=""/>
-                                    </span>
-                                </li>-->
                                     </ul>
                                 </div>
-                               
-                            
-                                <div itemprop="articleBody">
-                                    <details open="open" style="margin-bottom: 1em;">
-                                    <summary>Entitäten</summary>
+                            </div>
+                        </div>
+                        <!-- 2+3) Archivbeschreibung und CorrespAction -->
+                        <div class="sf-panels-row">
+                            <div class="sf-col-8">
+                                <div class="sf-panel sf-panel--archiv">
+                                    <div class="sf-panel__title">Archivbeschreibung</div>
+                                    <div class="sf-panel__body">
+                                        <!-- Inhalt folgt -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sf-col-4">
+                                <div class="sf-panel sf-panel--corresp">
+                                    <div class="sf-panel__title">CorrespAction</div>
+                                    <div class="sf-panel__body">
+                                        <details open="open" style="margin-bottom: 1em;">
+                                        <summary>Entitäten</summary>
                                     <div style="margin-top: 0.5em;">
                                         <!-- Variable: IDs der Korrespondenz-Personen -->
                                         <xsl:variable name="corresp-person-ids"
@@ -517,34 +516,51 @@
                                             </details>
                                         </xsl:if>
                                     </div>
-                                </details>
-                                    <xsl:for-each select="descendant::tei:body">
-                                        <xsl:call-template name="mam:view-type-img"/>
-                                    </xsl:for-each>
+                                        </details>
+                                    </div>
                                 </div>
-                            </article>
-                            <div class="card-footer" style="clear: both;">
-                                <nav class="navbar navbar-expand-lg" style="box-shadow: none;">
-                                    <div class="container-fluid" style="display: flex;
-                                        justify-content: center;
-                                        align-items: center;">
-                                        
-                                    </div>
-                                </nav>
-                                <xsl:if
-                                    test="descendant::tei:note[@type = 'textConst' or @type = 'commentary']">
-                                    <div class="card-body-anhang">
-                                        <dl class="kommentarhang">
-                                            <xsl:apply-templates
-                                                select="descendant::tei:note[@type = 'textConst' or @type = 'commentary']"
-                                                mode="kommentaranhang"/>
-                                        </dl>
-                                    </div>
-                                </xsl:if>
                             </div>
-                            <xsl:call-template name="html_footer"/>
+                        </div>
+                        <!-- 4) Faksimile -->
+                        <div class="sf-panel sf-panel--faksimile">
+                            <div class="sf-panel__title">Faksimile</div>
+                            <div class="sf-panel__body">
+                                <!-- Inhalt folgt -->
+                            </div>
+                        </div>
+                        <!-- 5+6) OCR und Schnitzler-Chronik -->
+                        <div class="sf-panels-row">
+                            <div class="sf-col-8">
+                                <div class="sf-panel sf-panel--ocr">
+                                    <div class="sf-panel__title">OCR</div>
+                                    <div class="sf-panel__body" itemprop="articleBody">
+                                        <xsl:for-each select="descendant::tei:body">
+                                            <xsl:call-template name="mam:view-type-img"/>
+                                        </xsl:for-each>
+                                        <xsl:if
+                                            test="descendant::tei:note[@type = 'textConst' or @type = 'commentary']">
+                                            <div class="card-body-anhang">
+                                                <dl class="kommentarhang">
+                                                    <xsl:apply-templates
+                                                        select="descendant::tei:note[@type = 'textConst' or @type = 'commentary']"
+                                                        mode="kommentaranhang"/>
+                                                </dl>
+                                            </div>
+                                        </xsl:if>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sf-col-4">
+                                <div class="sf-panel sf-panel--chronik">
+                                    <div class="sf-panel__title">Schnitzler-Chronik</div>
+                                    <div class="sf-panel__body">
+                                        <!-- Inhalt folgt -->
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <xsl:call-template name="html_footer"/>
                 </div>
                 <!-- Modal -->
                 <div class="modal fade" id="ueberlieferung" tabindex="-1"
