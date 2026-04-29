@@ -366,22 +366,10 @@
                         <xsl:with-param name="html_title" select="$name"/>
                     </xsl:call-template>
                     <body class="page">
-                        <div id="page">
+                        <div class="hfeed site" id="page">
                             <xsl:call-template name="nav_bar"/>
-                            <div class="container-fluid" style="padding: 1rem 1.5rem;">
-                                <div class="sf-panel sf-panel--navigation">
-                                    <div class="sf-panel__title">
-                                        <xsl:value-of select="$name"/>
-                                        <xsl:if test="child::tei:birth and child::tei:death">
-                                            <xsl:text> (</xsl:text>
-                                            <xsl:value-of select="mam:lebensdaten($entity)"/>
-                                            <xsl:text>)</xsl:text>
-                                        </xsl:if>
-                                    </div>
-                                    <div class="sf-panel__body">
-                                        <xsl:call-template name="person_detail"/>
-                                    </div>
-                                </div>
+                            <div style="max-width: 2000px; margin: 0 auto;">
+                                <xsl:call-template name="person_detail"/>
                             </div>
                             <xsl:call-template name="html_footer"/>
                         </div>
